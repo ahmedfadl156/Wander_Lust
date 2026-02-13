@@ -12,8 +12,9 @@ interface AuthContextType {
     user: User | null
     isLoading: boolean
     isAuthenticated: boolean
-    login: (token: string) => Promise<void>
-    logout: () => void
+    signUp: (name: string , email: string , password: string , passwordConfirm: string) => Promise<void>
+    login: (email: string, password: string) => Promise<void>
+    logout: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -28,46 +29,83 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, [])
 
     const checkAuth = async () => {
-        const token = localStorage.getItem("token")
-
-        if (!token) {
-            setIsLoading(false)
-            return
-        }
-
         try {
             // Call your backend to verify the token and get user data
             const res = await fetch("http://localhost:7000/api/v1/users/getMe", {
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
+                credentials: "include"
             })
 
             if (res.ok) {
                 const userData = await res.json()
                 setUser(userData.data.user || userData.user)
             } else {
-                // Token is invalid, remove it
-                localStorage.removeItem("token")
                 setUser(null)
             }
         } catch (error) {
             console.error("Auth check failed:", error)
-            localStorage.removeItem("token")
             setUser(null)
         } finally {
             setIsLoading(false)
         }
     }
 
-    const login = async (token: string) => {
-        localStorage.setItem("token", token)
-        await checkAuth()
+    const signUp = async (name: string , email: string , password: string , passwordConfirm: string) => {
+        try {
+            const res = await fetch("http://localhost:7000/api/v1/users/signup" , {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({ name, email, password, passwordConfirm })
+            })
+            if(res.ok){
+                await checkAuth()
+            }else{
+                const errorData = await res.json()
+                throw new Error(errorData.message || "Signup failed")
+            }
+        } catch (error) {
+            console.error("Signup failed:", error)
+            throw error
+        }
     }
 
-    const logout = () => {
-        localStorage.removeItem("token")
-        setUser(null)
+    const login = async (email: string, password: string) => {
+        try {
+            const res = await fetch("http://localhost:7000/api/v1/users/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ email, password }),
+            })
+
+            if (res.ok) {
+                await checkAuth()
+            } else {
+                const errorData = await res.json()
+                throw new Error(errorData.message || "Login failed")
+            }
+        } catch (error) {
+            console.error("Login failed:", error)
+            throw error
+        }
+    }
+
+    const logout = async () => {
+        try {
+            // Call backend to clear the cookie
+            await fetch("http://localhost:7000/api/v1/users/logout", {
+                method: "POST",
+                credentials: "include"
+            })
+        } catch (error) {
+            console.error("Logout error:", error)
+        } finally {
+            setUser(null)
+        }
     }
 
     return (
@@ -76,6 +114,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 user,
                 isLoading,
                 isAuthenticated: !!user,
+                signUp,
                 login,
                 logout
             }}

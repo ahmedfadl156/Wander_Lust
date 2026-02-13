@@ -14,8 +14,8 @@ const Navbar = () => {
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
     const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen)
 
-    const handleLogout = () => {
-        logout()
+    const handleLogout = async () => {
+        await logout()
         setIsDropdownOpen(false)
     }
 
@@ -30,8 +30,8 @@ const Navbar = () => {
 
                 {/* Desktop Navigation Links */}
                 <ul className="hidden lg:flex items-center gap-6">
-                    <li className="text-lg font-medium text-white cursor-pointer hover:text-primary transition-colors">About Us</li>
-                    <li className="text-lg font-medium text-white cursor-pointer hover:text-primary transition-colors">Tours</li>
+                    <li className="text-lg font-medium text-white cursor-pointer">About Us</li>
+                    <li className="text-lg font-medium text-white cursor-pointer">Tours</li>
                 </ul>
 
                 {/* Desktop Buttons / User Profile */}
@@ -69,12 +69,12 @@ const Navbar = () => {
                                 )}
                             </div>
                         ) : (
-                            // Login/Signup Buttons
+                            // Login/signUp Buttons
                             <>
                                 <Link href="/login">
                                     <Button className="text-base bg-primary text-white font-medium hover:bg-primary/90 cursor-pointer">Login</Button>
                                 </Link>
-                                <Link href="/signup">
+                                <Link href="/signUp">
                                     <Button className="text-base font-medium border-white text-primary cursor-pointer hover:bg-white hover:text-black transition-colors" variant="outline">Sign Up</Button>
                                 </Link>
                             </>
@@ -103,13 +103,13 @@ const Navbar = () => {
                     <ul className="flex flex-col items-center gap-8">
                         <li
                             onClick={toggleMenu}
-                            className="text-2xl font-medium text-white cursor-pointer hover:text-primary transition-colors"
+                            className="text-2xl font-medium text-white cursor-pointer"
                         >
                             About Us
                         </li>
                         <li
                             onClick={toggleMenu}
-                            className="text-2xl font-medium text-white cursor-pointer hover:text-primary transition-colors"
+                            className="text-2xl font-medium text-white cursor-pointer"
                         >
                             Tours
                         </li>
@@ -142,14 +142,14 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             ) : (
-                                // Login/Signup Buttons
+                                // Login/signUp Buttons
                                 <>
                                     <Link href="/login" className="w-full" onClick={toggleMenu}>
                                         <Button className="w-full text-lg bg-primary text-white font-medium hover:bg-primary/90 cursor-pointer py-6">
                                             Login
                                         </Button>
                                     </Link>
-                                    <Link href="/signup" className="w-full" onClick={toggleMenu}>
+                                    <Link href="/signUp" className="w-full" onClick={toggleMenu}>
                                         <Button className="w-full text-lg font-medium border-white text-primary cursor-pointer py-6" variant="outline">
                                             Sign Up
                                         </Button>
