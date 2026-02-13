@@ -1,6 +1,7 @@
 import About from "@/components/Home/About";
 import OurPromise from "@/components/Home/OurPromise";
 import PopularTours from "@/components/Home/PopularTours";
+import Subscribe from "@/components/Home/Subscribe";
 import SearchComponent from "@/components/searchComponent";
 
 export default function Home() {
@@ -38,6 +39,7 @@ export default function Home() {
       <About />
       <PopularTours />
       <OurPromise />
+      <Subscribe />
     </div>
   );
 }
