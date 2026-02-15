@@ -15,3 +15,12 @@ export const getTopTours = async () => {
     }
     return topTours
 }
+
+export const getTour = async (slug: string) => {
+    const fetchTour = await fetch(`http://localhost:7000/api/v1/tours/${slug}`)
+    const tour = await fetchTour.json()
+    if (!fetchTour.ok) {
+        throw new Error('Failed to fetch tour')
+    }
+    return tour
+}

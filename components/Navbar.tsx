@@ -21,17 +21,17 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="absolute top-0 left-0 right-0 z-50 w-full px-6 md:px-12 lg:px-[48px] py-[24px] flex items-center justify-between h-[96px]">
+            <nav className="absolute bg-white shadow-lg top-0 left-0 right-0 z-50 w-full px-6 md:px-12 lg:px-[48px] py-[24px] flex items-center justify-between h-[96px]">
                 {/* Logo */}
-                <div className="flex items-center gap-2 z-50">
+                <Link href="/" className="flex items-center gap-2 z-50">
                     <Image src="/icons/Logo.png" alt="Logo" width={30} height={30} />
-                    <p className="text-2xl font-bold text-white">Wanderlust</p>
-                </div>
+                    <p className="text-2xl font-bold text-black">Wanderlust</p>
+                </Link>
 
                 {/* Desktop Navigation Links */}
                 <ul className="hidden lg:flex items-center gap-6">
-                    <li className="text-lg font-medium text-white cursor-pointer">About Us</li>
-                    <li className="text-lg font-medium text-white cursor-pointer">Tours</li>
+                    <li className="text-lg font-medium text-black cursor-pointer">About Us</li>
+                    <li className="text-lg font-medium text-black cursor-pointer">Tours</li>
                 </ul>
 
                 {/* Desktop Buttons / User Profile */}
@@ -42,7 +42,7 @@ const Navbar = () => {
                             <div className="relative">
                                 <button
                                     onClick={toggleDropdown}
-                                    className="flex items-center gap-3 bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all px-4 py-2.5 rounded-full border border-white/20"
+                                    className="flex items-center gap-3 bg-black/20 backdrop-blur-md transition-all px-4 py-2.5 rounded-full border border-white/20"
                                 >
                                     <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
                                         <User className="w-5 h-5 text-white" />
@@ -85,7 +85,7 @@ const Navbar = () => {
                 {/* Hamburger Menu Button */}
                 <button
                     onClick={toggleMenu}
-                    className="lg:hidden z-50 text-white hover:text-primary transition-colors"
+                    className="lg:hidden z-50 text-black hover:text-primary transition-colors"
                     aria-label="Toggle menu"
                 >
                     {isMenuOpen ? <X size={32} /> : <Menu size={32} />}

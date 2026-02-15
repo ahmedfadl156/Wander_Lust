@@ -15,5 +15,13 @@ export const signupSchema = z.object({
     path: ["passwordConfirmation"],
 })
 
+export const bookingSchema = z.object({
+    tour: z.string(),
+    user: z.string(),
+    date: z.string(),
+    guests: z.number().min(1, "Guests must be at least 1"),
+})
+
 export type LoginSchema = z.infer<typeof loginSchema>
 export type SignupSchema = z.infer<typeof signupSchema>
+export type BookingSchema = z.infer<typeof bookingSchema>

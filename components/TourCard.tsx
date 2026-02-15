@@ -61,7 +61,7 @@ const TourCard = ({tour}: {tour: tourProps}) => {
                         <p className="text-[#94A3B8]">Starting from</p>
                         <p className="text-[#0F172A] font-bold text-[22px]">${tour.price}</p>
                     </div>
-                    <Link href="/tours" className="text-primary font-bold underline">
+                    <Link href={`/tours/${tour.slug}`} className="text-primary font-bold underline">
                         View Details
                     </Link>
                 </div>
