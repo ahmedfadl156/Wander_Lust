@@ -82,17 +82,6 @@ const TourPage = () => {
         fetchTour()
     }, [slug])
 
-    // if (isLoading) {
-    //     return (
-    //         <main className="mx-auto max-w-7xl py-12 lg:py-20 mt-20 px-4 md:px-6 lg:px-8">
-    //             <div className="animate-pulse">
-    //                 <div className="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
-    //                 <div className="h-6 bg-gray-200 rounded w-1/4"></div>
-    //             </div>
-    //         </main>
-    //     )
-    // }
-
     if (!tour) {
         return (
             <main className="mx-auto max-w-7xl py-12 lg:py-20 mt-20 px-4 md:px-6 lg:px-8">

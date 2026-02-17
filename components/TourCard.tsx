@@ -12,12 +12,15 @@ interface tourProps {
     ratingsAverage: number,
     ratingsQuantity: number,
     imageCover: string,
+    startLocation?: {
+        description: string,
+    }
 }
 
 const tourDifficulty = {
     easy: "bg-green-500",
     medium: "bg-yellow-500",
-    hard: "bg-red-500"
+    difficult: "bg-red-500"
 }
 
 const TourCard = ({tour}: {tour: tourProps}) => {
@@ -35,7 +38,7 @@ const TourCard = ({tour}: {tour: tourProps}) => {
             {/* Content */}
             <div className="p-6">
                 <div className="flex items-center justify-between">
-                    <p className="text-primary font-bold uppercase text-[12px]">Switzerland</p>
+                    <p className="text-primary font-bold uppercase text-[12px]">{tour.startLocation.description || "Not Specified"}</p>
                     <span className="flex items-center gap-1">
                         <StarIcon className="size-4 text-yellow-500 fill-yellow-500" />
                         <span className="font-bold text-yellow-500">{tour.ratingsAverage}</span>

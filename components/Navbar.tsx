@@ -21,7 +21,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="absolute bg-white shadow-lg top-0 left-0 right-0 z-50 w-full px-6 md:px-12 lg:px-[48px] py-[24px] flex items-center justify-between h-[96px]">
+            <nav className="absolute bg-white shadow-lg top-0 left-0 right-0 z-50 w-full px-6 md:px-12 lg:px-[48px] py-[24px] flex items-center justify-between h-[80px]">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 z-50">
                     <Image src="/icons/Logo.png" alt="Logo" width={30} height={30} />
@@ -30,8 +30,8 @@ const Navbar = () => {
 
                 {/* Desktop Navigation Links */}
                 <ul className="hidden lg:flex items-center gap-6">
-                    <li className="text-lg font-medium text-black cursor-pointer">About Us</li>
-                    <li className="text-lg font-medium text-black cursor-pointer">Tours</li>
+                    <li className="text-lg font-medium text-black cursor-pointer"><Link href="/about">About Us</Link></li>
+                    <li className="text-lg font-medium text-black cursor-pointer"><Link href="/tours">Tours</Link></li>
                 </ul>
 
                 {/* Desktop Buttons / User Profile */}

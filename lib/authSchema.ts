@@ -22,6 +22,13 @@ export const bookingSchema = z.object({
     guests: z.number().min(1, "Guests must be at least 1"),
 })
 
+export const searchSchema = z.object({
+    destination: z.string(),
+    date: z.string(),
+    guests: z.string(),
+})
+
 export type LoginSchema = z.infer<typeof loginSchema>
 export type SignupSchema = z.infer<typeof signupSchema>
 export type BookingSchema = z.infer<typeof bookingSchema>
+export type SearchSchema = z.infer<typeof searchSchema>

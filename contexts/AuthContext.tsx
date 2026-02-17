@@ -18,6 +18,7 @@ interface AuthContextType {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
+const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
@@ -31,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const checkAuth = async () => {
         try {
             // Call your backend to verify the token and get user data
-            const res = await fetch("http://localhost:7000/api/v1/users/getMe", {
+            const res = await fetch(`${API_URL}/users/getMe`, {
                 credentials: "include"
             })
 
@@ -51,7 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const signUp = async (name: string , email: string , password: string , passwordConfirm: string) => {
         try {
-            const res = await fetch("http://localhost:7000/api/v1/users/signup" , {
+            const res = await fetch(`${API_URL}/users/signup` , {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -73,7 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const login = async (email: string, password: string) => {
         try {
-            const res = await fetch("http://localhost:7000/api/v1/users/login", {
+            const res = await fetch(`${API_URL}/users/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -97,7 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const logout = async () => {
         try {
             // Call backend to clear the cookie
-            await fetch("http://localhost:7000/api/v1/users/logout", {
+            await fetch(`${API_URL}/users/logout`, {
                 method: "POST",
                 credentials: "include"
             })
