@@ -41,7 +41,7 @@ const TourCard = ({tour}: {tour: tourProps}) => {
                     <p className="text-primary font-bold uppercase text-[12px]">{tour.startLocation.description || "Not Specified"}</p>
                     <span className="flex items-center gap-1">
                         <StarIcon className="size-4 text-yellow-500 fill-yellow-500" />
-                        <span className="font-bold text-yellow-500">{tour.ratingsAverage}</span>
+                        <span className="font-bold text-yellow-500">{tour.ratingsAverage.toFixed(1)}</span>
                         <span className="text-[#94A3B8]">({tour.ratingsQuantity})</span>
                     </span>
                 </div>

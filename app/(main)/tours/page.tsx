@@ -19,13 +19,15 @@ const page = () => {
     const [tours, setTours] = useState<any[]>([]);
     const [filteredTours, setFilteredTours] = useState<any[]>([])
     const searchParams = useSearchParams();
-    const searchFilter = searchParams.get('search');
     useEffect(() => {
         const getTours = async () => {
             try {
-                const sortParams = searchParams.get('sort');
-                const searchFilter = searchParams.get('search');
-                const response = await getAllTours(sortParams, searchFilter);
+                const paramsObj: any = {};
+                searchParams.forEach((value, key) => {
+                    paramsObj[key] = value;
+                });
+
+                const response = await getAllTours(paramsObj);
                 const toursData = response.data.tours;
                 setTours(toursData);
                 setFilteredTours(toursData);
@@ -34,7 +36,7 @@ const page = () => {
             }
         }
         getTours();
-    }, [searchParams])
+    }, [searchParams.toString()])
 
     const handleFilterChange = (filters: any) => {
         setFilteredTours(filters)

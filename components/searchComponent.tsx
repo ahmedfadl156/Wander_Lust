@@ -1,5 +1,5 @@
 'use client'
-import { CalendarIcon, MapPin, SearchIcon, UserIcon } from "lucide-react"
+import { CalendarIcon, DollarSignIcon, MapPin, SearchIcon, UserIcon } from "lucide-react"
 import { Button } from "./ui/button"
 import { Controller, useForm } from "react-hook-form"
 import { searchSchema, SearchSchema } from "@/lib/authSchema"
@@ -14,8 +14,8 @@ const searchComponent = () => {
     const pathname = usePathname();
     const defaultValues = {
         destination: searchParams.get("destination") || "",
-        date: searchParams.get("date") || "",
-        guests: searchParams.get("guests") || "1",
+        price: searchParams.get("price") || 0,
+        guests: searchParams.get("guests") || 1,
     }
     const form = useForm<SearchSchema>({
         resolver: zodResolver(searchSchema),
@@ -29,10 +29,10 @@ const searchComponent = () => {
         }else{
             params.delete("destination");
         }
-        if(data.date){
-            params.set("date", data.date);
+        if(data.price){
+            params.set("price", data.price.toString());
         }else{
-            params.delete("date");
+            params.delete("price");
         }
         if(data.guests){
             params.set("guests", data.guests.toString());
@@ -69,17 +69,17 @@ return (
                 )}
             />
             <Controller 
-                name="date"
+                name="price"
                 control={form.control}
                 render={({ field , fieldState}) => (
                     <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor={field.name}>Date</FieldLabel>
+                        <FieldLabel htmlFor={field.name}>Price</FieldLabel>
                         <div className="relative flex flex-col items-start">
-                            <CalendarIcon className="size-5 text-[#64748B] absolute top-[40%] left-2 transform" />
+                            <DollarSignIcon className="size-5 text-[#64748B] absolute top-[40%] left-2 transform" />
                             <Input 
                             {...field} 
                             id={field.name} 
-                            type="date" 
+                            type="text" 
                             aria-invalid={fieldState.invalid}
                             className="py-5 px-8"
                             />

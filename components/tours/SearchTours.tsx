@@ -8,19 +8,19 @@ const SearchTours = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
-    const [isPedning , startTransation] = useTransition();
-    const [searchTerm , setSearchTerm] = useState(searchParams.get('search') || "");
+    const [isPending, startTransition] = useTransition();
+    const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || "");
 
     const handleSearch = (term: string) => {
         const params = new URLSearchParams(searchParams.toString());
 
-        if(term){
+        if (term) {
             params.set('search', term);
-        }else{
+        } else {
             params.delete('search');
         }
 
-        startTransation(() => {
+        startTransition(() => {
             router.push(`${pathname}?${params.toString()}`);
         })
     }

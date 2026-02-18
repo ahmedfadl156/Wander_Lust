@@ -24,7 +24,7 @@ export const bookingSchema = z.object({
 
 export const searchSchema = z.object({
     destination: z.string(),
-    date: z.string(),
+    price: z.string(),
     guests: z.string(),
 })
 

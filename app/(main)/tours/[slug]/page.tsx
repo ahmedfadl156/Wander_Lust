@@ -252,14 +252,14 @@ const TourPage = () => {
                                 <div className="flex justify-between items-center gap-4">
                                     <div className="flex items-center gap-2">
                                         <Image
-                                            src={review.user.photo || "/images/guide-avatar.jpg"}
-                                            alt={review.user.name}
+                                            src={review.user?.photo || "/images/guide-avatar.jpg"}
+                                            alt={review.user?.name || ""}
                                             width={50}
                                             height={50}
                                             className="object-cover rounded-full"
                                         />
                                         <div className="flex flex-col">
-                                            <h3 className="text-lg font-bold text-gray-900">{review.user.name}</h3>
+                                            <h3 className="text-lg font-bold text-gray-900">{review.user?.name}</h3>
                                             <p className="text-sm text-primary uppercase">{review.createdAt.split('T')[0]}</p>
                                         </div>
                                     </div>

@@ -5,13 +5,17 @@ import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
 import { Checkbox } from "../ui/checkbox"
 import { Label } from "../ui/label"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
-const FilterTours = ({ tours, onFilterChange }: { tours: any, onFilterChange: (filters: any) => void }) => {
+const FilterTours = () => {
     const difficulties = ["easy", "medium", "difficult"]
-    const durations = ["1-3 days", "4-7 days", "8-14 days", "15+ days"]
+    const durations = ["5 days", "10 days", "15 days", "20 days"]
     const [priceRange, setPriceRange] = useState([0, 1000])
     const [selectedDifficulties, setSelectedDifficulties] = useState<string[]>([])
     const [selectedDurations, setSelectedDurations] = useState<string[]>([])
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
 
     const handleDifficultyChange = (difficulty: string, checked: boolean) => {
         if (checked) {
@@ -33,26 +37,16 @@ const FilterTours = ({ tours, onFilterChange }: { tours: any, onFilterChange: (f
         setPriceRange([0, 1000])
         setSelectedDifficulties([])
         setSelectedDurations([])
-        onFilterChange(tours) // Show all tours when reset
     }
 
     const handleApplyFilters = () => {
-        const filteredTours = tours.filter((tour: any) => {
-            // Price filter - always apply
-            const priceMatch = tour.price >= priceRange[0] && tour.price <= priceRange[1]
+        const queryParams = new URLSearchParams(searchParams.toString());
+        if (priceRange[0] !== 0) queryParams.set("minPrice", priceRange[0].toString());
+        if (priceRange[1] !== 1000) queryParams.set("maxPrice", priceRange[1].toString());
+        if (selectedDifficulties.length > 0) queryParams.set("difficulties", selectedDifficulties.join(","));
+        if (selectedDurations.length > 0) queryParams.set("durations", selectedDurations.join(",").split(" ")[0]);
+        router.push(`${pathname}?${queryParams.toString()}`);
 
-            // Difficulty filter - if empty, show all
-            const difficultyMatch = selectedDifficulties.length === 0 ||
-                selectedDifficulties.includes(tour.difficulty)
-
-            // Duration filter - if empty, show all
-            const durationMatch = selectedDurations.length === 0 ||
-                selectedDurations.includes(tour.duration)
-
-            return priceMatch && difficultyMatch && durationMatch
-        })
-
-        onFilterChange(filteredTours)
     }
 
     return (
